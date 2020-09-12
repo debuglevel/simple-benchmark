@@ -1,5 +1,7 @@
 package de.debuglevel.simplebenchmark
 
+import de.debuglevel.simplebenchmark.benchmarks.Benchmark
+import de.debuglevel.simplebenchmark.benchmarks.cpu.prime.PrimeBenchmark
 import io.micronaut.context.ApplicationContext
 import io.micronaut.runtime.Micronaut
 import io.swagger.v3.oas.annotations.OpenAPIDefinition
@@ -27,12 +29,24 @@ object Application {
 
     lateinit var applicationContext: ApplicationContext
 
+//    @JvmStatic
+//    fun main(args: Array<String>) {
+//        logger.info { "Starting up..." }
+//        applicationContext = Micronaut.run(Application.javaClass)
+//
+//        // TODO: how to do API versioning? (or do it at all?)
+//    }
+
     @JvmStatic
     fun main(args: Array<String>) {
-        logger.info { "Starting up..." }
+        logger.info { "Starting benchmarks..." }
         applicationContext = Micronaut.run(Application.javaClass)
 
-        // TODO: how to do API versioning? (or do it at all?)
+        applicationContext.getBean(PrimeBenchmark::class.java).getScore()
+
+        applicationContext.getBeansOfType(Benchmark::class.java).forEach {
+            it.getScore()
+        }
     }
 }
 
