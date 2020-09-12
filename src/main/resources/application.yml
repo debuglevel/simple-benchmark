@@ -33,7 +33,7 @@ micronaut:
 
 logger:
   levels:
-    de.debuglevel: TRACE
+    de.debuglevel: DEBUG
     io.micronaut.http.server: DEBUG
     io.micronaut.data.query: DEBUG
     # io.micronaut.context.condition: DEBUG # log infos about loading conditional beans

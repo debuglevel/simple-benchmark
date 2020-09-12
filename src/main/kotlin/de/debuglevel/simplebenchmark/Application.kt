@@ -1,7 +1,6 @@
 package de.debuglevel.simplebenchmark
 
 import de.debuglevel.simplebenchmark.benchmarks.Benchmark
-import de.debuglevel.simplebenchmark.benchmarks.cpu.prime.ThreadedPrimeBenchmark
 import io.micronaut.context.ApplicationContext
 import io.micronaut.runtime.Micronaut
 import io.swagger.v3.oas.annotations.OpenAPIDefinition
@@ -42,7 +41,7 @@ object Application {
         logger.info { "Starting benchmarks..." }
         applicationContext = Micronaut.run(Application.javaClass)
 
-        applicationContext.getBean(ThreadedPrimeBenchmark::class.java).getScore()
+        //applicationContext.getBean(ThreadedPrimeBenchmark::class.java).getScore()
 
         applicationContext.getBeansOfType(Benchmark::class.java).forEach {
             it.getScore()
