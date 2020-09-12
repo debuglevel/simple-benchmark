@@ -146,6 +146,9 @@ dependencies {
 
     // Statistical functions
     compile 'org.nield:kotlin-statistics:1.2.1'
+
+    // System information
+    implementation 'com.github.oshi:oshi-core:5.2.5'
 }
 
 // Java configuration

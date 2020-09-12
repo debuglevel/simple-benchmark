@@ -1,6 +1,7 @@
 package de.debuglevel.simplebenchmark
 
 import de.debuglevel.simplebenchmark.benchmarks.Benchmark
+import de.debuglevel.simplebenchmark.information.SystemInformationService
 import io.micronaut.context.ApplicationContext
 import io.micronaut.runtime.Micronaut
 import io.swagger.v3.oas.annotations.OpenAPIDefinition
@@ -41,7 +42,10 @@ object Application {
         logger.info { "Starting benchmarks..." }
         applicationContext = Micronaut.run(Application.javaClass)
 
-        //applicationContext.getBean(ThreadedPrimeBenchmark::class.java).getScore()
+        applicationContext.getBean(SystemInformationService::class.java).json()
+
+        applicationContext.getBean(SystemInformationService::class.java).getSystemInformation()
+            .forEach { (k, v) -> println("$k\t| $v") }
 
         applicationContext.getBeansOfType(Benchmark::class.java).forEach {
             it.getScore()
