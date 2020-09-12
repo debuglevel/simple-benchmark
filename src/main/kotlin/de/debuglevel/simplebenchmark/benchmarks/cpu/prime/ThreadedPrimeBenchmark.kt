@@ -14,10 +14,11 @@ class ThreadedPrimeBenchmark : Benchmark() {
     override val benchmarkType = BenchmarkType.CPU
     override val benchmarkIterations = 10
     override val baselineValue = 5.29087474E10
+    private val parallelThreads = 128
 
     override fun getIterationScore(): Double {
         val nanoseconds = measureNanoTime {
-            (1..128)
+            (1..parallelThreads)
                 .map {
                     Thread(
                         Runnable {
