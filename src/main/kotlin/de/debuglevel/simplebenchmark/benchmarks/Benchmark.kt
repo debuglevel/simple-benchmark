@@ -1,0 +1,3 @@
+package de.debuglevel.simplebenchmark.benchmarks
+
+interface Benchmark

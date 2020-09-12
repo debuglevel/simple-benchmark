@@ -143,6 +143,9 @@ dependencies {
     //implementation "io.micronaut.views:micronaut-views-freemarker"
     //implementation "io.micronaut.views:micronaut-views-rocker"
     //implementation "io.micronaut.views:micronaut-views-soy"
+
+    // Statistical functions
+    compile 'org.nield:kotlin-statistics:1.2.1'
 }
 
 // Java configuration
