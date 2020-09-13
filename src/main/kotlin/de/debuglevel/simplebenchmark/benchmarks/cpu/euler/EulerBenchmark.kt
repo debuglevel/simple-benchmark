@@ -18,11 +18,11 @@ class EulerBenchmark(
     override val benchmarkIterations = benchmarkConfiguration.iterations
     override val baselineValue = benchmarkConfiguration.baseline
 
-    override fun getIterationScore(): Double {
+    override fun getIterationDuration(): Long {
         val nanoseconds = measureNanoTime {
             EulerCalculator.start(Int.MAX_VALUE)
         }
 
-        return nanoseconds / baselineValue
+        return nanoseconds
     }
 }

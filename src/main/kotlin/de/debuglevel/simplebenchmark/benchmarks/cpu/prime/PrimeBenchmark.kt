@@ -18,11 +18,11 @@ class PrimeBenchmark(
     override val benchmarkIterations = benchmarkConfiguration.iterations
     override val baselineValue = benchmarkConfiguration.baseline
 
-    override fun getIterationScore(): Double {
+    override fun getIterationDuration(): Long {
         val nanoseconds = measureNanoTime {
             PrimeCalculator.start(400_000)
         }
 
-        return nanoseconds / baselineValue
+        return nanoseconds
     }
 }

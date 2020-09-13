@@ -19,7 +19,7 @@ class ThreadedPrimeBenchmark(
     override val baselineValue = benchmarkConfiguration.baseline
     private val parallelThreads = 128
 
-    override fun getIterationScore(): Double {
+    override fun getIterationDuration(): Long {
         val nanoseconds = measureNanoTime {
             (1..parallelThreads)
                 .map {
@@ -33,6 +33,6 @@ class ThreadedPrimeBenchmark(
                 .onEach { it.join() }
         }
 
-        return nanoseconds / baselineValue
+        return nanoseconds
     }
 }

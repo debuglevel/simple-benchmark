@@ -17,14 +17,29 @@ class BenchmarkController(
     private val logger = KotlinLogging.logger {}
 
     @Get("/")
-    fun getAll(): HttpResponse<*> {
-        logger.debug("Called getAll()")
+    fun getAllBenchmarks(): HttpResponse<*> {
+        logger.debug("Called getAllBenchmarks()")
         return try {
-            val benchmarkScores = benchmarkService.runAll()
-            val getBenchmarkResponses = benchmarkScores
+            val benchmarks = benchmarkService.listAll()
+            val getBenchmarkResponses = benchmarks
                 .map { GetBenchmarkResponse(it) }
 
             HttpResponse.ok(getBenchmarkResponses)
+        } catch (e: Exception) {
+            logger.error(e) { "Unhandled exception" }
+            HttpResponse.serverError("Unhandled exception: ${e.message}")
+        }
+    }
+
+    @Get("/scores/")
+    fun getAllScores(): HttpResponse<*> {
+        logger.debug("Called getAllScores()")
+        return try {
+            val benchmarkScores = benchmarkService.runAll()
+            val getBenchmarkScoreResponses = benchmarkScores
+                .map { GetBenchmarkScoreResponse(it) }
+
+            HttpResponse.ok(getBenchmarkScoreResponses)
         } catch (e: Exception) {
             logger.error(e) { "Unhandled exception" }
             HttpResponse.serverError("Unhandled exception: ${e.message}")
