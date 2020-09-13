@@ -28,20 +28,10 @@ object Application {
 
     lateinit var applicationContext: ApplicationContext
 
-//    @JvmStatic
-//    fun main(args: Array<String>) {
-//        logger.info { "Starting up..." }
-//        applicationContext = Micronaut.run(Application.javaClass)
-//
-//        // TODO: how to do API versioning? (or do it at all?)
-//    }
-
     @JvmStatic
     fun main(args: Array<String>) {
-        logger.info { "Starting benchmarks..." }
+        logger.info { "Starting up..." }
         applicationContext = Micronaut.run(Application.javaClass)
-
-        //applicationContext.getBean(ThreadedPrimeBenchmark::class.java).getScore()
 
         applicationContext.getBeansOfType(Benchmark::class.java).forEach {
             it.getScore()
