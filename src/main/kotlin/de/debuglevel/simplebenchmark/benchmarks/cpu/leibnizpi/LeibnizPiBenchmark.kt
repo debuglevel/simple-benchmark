@@ -7,13 +7,16 @@ import javax.inject.Singleton
 import kotlin.system.measureNanoTime
 
 @Singleton
-class LeibnizPiBenchmark : Benchmark() {
+class LeibnizPiBenchmark(
+    private val benchmarkConfiguration: LeibnizPiBenchmarkConfiguration
+) : Benchmark() {
     private val logger = KotlinLogging.logger {}
 
     override val name: String = "Leibniz Pi"
     override val benchmarkType = BenchmarkType.CPU
-    override val benchmarkIterations = 10
-    override val baselineValue = 10061219900.0
+    override val enabled = benchmarkConfiguration.enabled
+    override val benchmarkIterations = benchmarkConfiguration.iterations
+    override val baselineValue = benchmarkConfiguration.baseline
 
     override fun getIterationScore(): Double {
         val nanoseconds = measureNanoTime {

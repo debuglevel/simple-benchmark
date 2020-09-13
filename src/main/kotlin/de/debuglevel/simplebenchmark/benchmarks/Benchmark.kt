@@ -6,6 +6,7 @@ import org.nield.kotlinstatistics.median
 abstract class Benchmark {
     private val logger = KotlinLogging.logger {}
 
+    abstract val enabled: Boolean
     abstract val benchmarkIterations: Int
     abstract val baselineValue: Double
     abstract val name: String

@@ -7,13 +7,16 @@ import javax.inject.Singleton
 import kotlin.system.measureNanoTime
 
 @Singleton
-class ThreadedPrimeBenchmark : Benchmark() {
+class ThreadedPrimeBenchmark(
+    private val benchmarkConfiguration: ThreadedPrimeBenchmarkConfiguration
+) : Benchmark() {
     private val logger = KotlinLogging.logger {}
 
     override val name: String = "Threaded Prime"
     override val benchmarkType = BenchmarkType.CPU
-    override val benchmarkIterations = 10
-    override val baselineValue = 5.29087474E10
+    override val enabled = benchmarkConfiguration.enabled
+    override val benchmarkIterations = benchmarkConfiguration.iterations
+    override val baselineValue = benchmarkConfiguration.baseline
     private val parallelThreads = 128
 
     override fun getIterationScore(): Double {

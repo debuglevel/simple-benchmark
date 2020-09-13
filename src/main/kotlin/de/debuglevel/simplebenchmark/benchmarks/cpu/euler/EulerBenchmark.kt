@@ -7,13 +7,16 @@ import javax.inject.Singleton
 import kotlin.system.measureNanoTime
 
 @Singleton
-class EulerBenchmark : Benchmark() {
+class EulerBenchmark(
+    private val benchmarkConfiguration: EulerBenchmarkConfiguration
+) : Benchmark() {
     private val logger = KotlinLogging.logger {}
 
     override val name: String = "Euler"
     override val benchmarkType = BenchmarkType.CPU
-    override val benchmarkIterations = 40_000_000
-    override val baselineValue = 1799.0
+    override val enabled = benchmarkConfiguration.enabled
+    override val benchmarkIterations = benchmarkConfiguration.iterations
+    override val baselineValue = benchmarkConfiguration.baseline
 
     override fun getIterationScore(): Double {
         val nanoseconds = measureNanoTime {

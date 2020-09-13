@@ -1,5 +1,22 @@
 app:
   simplebenchmark:
+    benchmarks:
+      euler:
+        enabled: true
+        iterations: 40_000_000
+        baseline: 1799.0
+      leibnizpi:
+        enabled: true
+        iterations: 10
+        baseline: 10061219900.0
+      prime:
+        enabled: true
+        iterations: 10
+        baseline: 3.32141157E10
+      threadedprime:
+        enabled: true
+        iterations: 10
+        baseline: 5.29087474E10
   security:
     configurable-credential-authentication:
       username: "SECRET_USERNAME"
