@@ -1,4 +1,4 @@
-package de.debuglevel.simplebenchmark.information
+package de.debuglevel.simplebenchmark.systeminformation
 
 import oshi.SystemInfo
 

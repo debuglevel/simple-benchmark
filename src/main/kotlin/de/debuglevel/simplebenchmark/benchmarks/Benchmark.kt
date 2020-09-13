@@ -13,7 +13,7 @@ abstract class Benchmark {
 
     abstract fun getIterationScore(): Double
 
-    fun getScore(): Double {
+    fun getScore(): BenchmarkScore {
         logger.debug { "Getting median score for $name over $benchmarkIterations iterations..." }
 
         val medianScore = (1..benchmarkIterations).map {
@@ -24,6 +24,6 @@ abstract class Benchmark {
         }.median()
 
         logger.debug { "Got median score for $name over $benchmarkIterations iterations: $medianScore" }
-        return medianScore
+        return BenchmarkScore(name, medianScore)
     }
 }

@@ -1,4 +1,4 @@
-package de.debuglevel.simplebenchmark.information
+package de.debuglevel.simplebenchmark.systeminformation
 
 import com.fasterxml.jackson.databind.introspect.AnnotatedMember
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector

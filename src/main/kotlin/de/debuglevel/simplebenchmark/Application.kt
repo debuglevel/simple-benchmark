@@ -1,6 +1,5 @@
 package de.debuglevel.simplebenchmark
 
-import de.debuglevel.simplebenchmark.benchmarks.Benchmark
 import io.micronaut.context.ApplicationContext
 import io.micronaut.runtime.Micronaut
 import io.swagger.v3.oas.annotations.OpenAPIDefinition
@@ -16,9 +15,9 @@ import mu.KotlinLogging
  */
 @OpenAPIDefinition(
     info = Info(
-        title = "Greeter Microservice",
+        title = "Simple Benchmark",
         version = "0.1",
-        description = "Microservice for greeting people",
+        description = "Simple benchmarking tool",
         license = License(name = "Unlicense", url = "https://unlicense.org/"),
         contact = Contact(url = "http://debuglevel.de", name = "Marc Kohaupt")
     )
@@ -32,10 +31,6 @@ object Application {
     fun main(args: Array<String>) {
         logger.info { "Starting up..." }
         applicationContext = Micronaut.run(Application.javaClass)
-
-        applicationContext.getBeansOfType(Benchmark::class.java).forEach {
-            it.getScore()
-        }
     }
 }
 
