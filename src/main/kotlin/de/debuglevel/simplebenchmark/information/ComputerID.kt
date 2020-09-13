@@ -1,7 +1,6 @@
 package de.debuglevel.simplebenchmark.information
 
 import oshi.SystemInfo
-import oshi.util.Constants
 
 /**
  * MIT License
@@ -34,26 +33,6 @@ import oshi.util.Constants
  */
 object ComputerID {
     /**
-     *
-     *
-     * main.
-     *
-     *
-     * @param args
-     * an array of [java.lang.String] objects.
-     */
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val unknownHash = String.format("%08x", Constants.UNKNOWN.hashCode())
-        println("Here's a unique (?) id for your computer.")
-        println(computerIdentifier)
-        println(
-            "If the second field is " + unknownHash
-                    + " then I couldn't find a serial number, and running as sudo might change this."
-        )
-    }
-
-    /**
      * Generates a Computer Identifier, which may be part of a strategy to construct
      * a licence key. (The identifier may not be unique as in one case hashcode
      * could be same for multiple values, and the result may differ based on whether
@@ -68,17 +47,15 @@ object ComputerID {
     val computerIdentifier: String
         get() {
             val systemInfo = SystemInfo()
-            val operatingSystem = systemInfo.operatingSystem
-            val hardwareAbstractionLayer = systemInfo.hardware
-            val centralProcessor = hardwareAbstractionLayer.processor
-            val computerSystem = hardwareAbstractionLayer.computerSystem
-            val vendor = operatingSystem.manufacturer
-            val processorSerialNumber = computerSystem.serialNumber
-            val processorIdentifier = centralProcessor.processorIdentifier.identifier
-            val processors = centralProcessor.logicalProcessorCount
-            val delimiter = "-"
-            return (String.format("%08x", vendor.hashCode()) + delimiter
-                    + String.format("%08x", processorSerialNumber.hashCode()) + delimiter
-                    + String.format("%08x", processorIdentifier.hashCode()) + delimiter + processors)
+            val vendor = systemInfo.operatingSystem.manufacturer
+            val processorSerialNumber = systemInfo.hardware.computerSystem.serialNumber
+            val processorIdentifier = systemInfo.hardware.processor.processorIdentifier.identifier
+            val processors = systemInfo.hardware.processor.logicalProcessorCount
+
+            val processorIdentifierHash = String.format("%08x", processorIdentifier.hashCode())
+            val processorSerialNumberHash = String.format("%08x", processorSerialNumber.hashCode())
+            val processorVendorHash = String.format("%08x", vendor.hashCode())
+
+            return "$processorVendorHash-$processorSerialNumberHash-$processorIdentifierHash-$processors"
         }
 }

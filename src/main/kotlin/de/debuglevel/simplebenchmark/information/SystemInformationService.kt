@@ -1,33 +1,35 @@
 package de.debuglevel.simplebenchmark.information
 
-import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
+import mu.KotlinLogging
 import oshi.SystemInfo
 import javax.inject.Singleton
 
 
 @Singleton
 class SystemInformationService {
-    fun json() {
-        // Jackson ObjectMapper
-        val mapper = ObjectMapper()
+    private val logger = KotlinLogging.logger {}
 
-        // Fetch some OSHI objects
-        val si = SystemInfo()
-        val hal = si.hardware
-        try {
-            // Pretty print computer system
-            println("JSON for CPU:")
-            val cpu = hal.processor
-            println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(cpu))
-
-            // Print memory
-            println("JSON for Memory:")
-            val mem = hal.memory
-            println(mapper.writeValueAsString(mem))
-        } catch (e: JsonProcessingException) {
-            println("Exception encountered: " + e.message)
+    private val ignoredThings: Map<Class<out Any>, Set<String>>
+        get() {
+            return mapOf(
+//            OperatingSystem::class.java to setOf(
+//                OperatingSystem::getBitness.name
+//            ),
+            )
         }
+
+    fun getAllSystemInformationJson(): String {
+        logger.debug { "Getting SystemInformation as JSON..." }
+
+        val mapper = ObjectMapper()
+        mapper.setAnnotationIntrospector(IgnoranceIntrospector(ignoredThings))
+
+        val systemInfo = SystemInfo()
+        val json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(systemInfo)
+
+        logger.debug { "Got SystemInformation as JSON (${json.count()} bytes)" }
+        return json
     }
 
     fun getSystemInformation(): Map<String, Any> {
