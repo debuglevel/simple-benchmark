@@ -8,7 +8,7 @@ app:
       leibnizpi:
         enabled: true
         iterations: 10
-        baseline: 10061219900.0
+        baseline: 1.138103045E10
       prime:
         enabled: true
         iterations: 10
