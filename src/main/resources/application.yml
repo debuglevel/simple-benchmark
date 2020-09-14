@@ -1,6 +1,7 @@
 app:
   simplebenchmark:
     benchmarks:
+      # note: 1.2E9 nanoseconds = 1.2 seconds
       euler:
         enabled: true
         iterations: 40_000_000
